@@ -2,6 +2,12 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Buyer\BuyerController;
+use App\Http\Controllers\Category\CategoryController;
+use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\Seller\SellerController;
+use App\Http\Controllers\Transaction\TransactionController;
+use App\Http\Controllers\User\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +23,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::apiResource('buyer', BuyerController::class)->only(['index', 'show'])->middleware('auth:sanctum');
+Route::apiResource('seller', SellerController::class)->only(['index', 'show'])->middleware('auth:sanctum');
+Route::apiResource('category', CategoryController::class)->only(['index', 'show'])->middleware('auth:sanctum');
+Route::apiResource('product', ProductController::class)->only(['index', 'show'])->middleware('auth:sanctum');
+Route::apiResource('transaction', TransactionController::class)->only(['index', 'show'])->middleware('auth:sanctum');
+Route::apiResource('user', UserController::class)->only(['index', 'show'])->middleware('auth:sanctum');
