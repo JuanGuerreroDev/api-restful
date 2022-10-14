@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\User as SelfModel;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -23,6 +24,9 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'verified' => $verified = $this->faker->randomElement([SelfModel::VERIFIED_USER, SelfModel::UNVERIFIED_USER]),
+            'verification_token' => $verified === SelfModel::VERIFIED_USER ? null : SelfModel::generateVerificationCode(),
+            'admin' => $this->faker->randomElement([SelfModel::ADMIN_USER, SelfModel::REGULAR_USER]),
         ];
     }
 
